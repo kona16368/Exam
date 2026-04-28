@@ -6,9 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.security.auth.Subject;
-
 import bean.School;
+import bean.Subject;
 
 public class SubjectDao extends Dao {
 
@@ -38,7 +37,6 @@ public class SubjectDao extends Dao {
 
                 subject.setCd(rs.getString("cd"));
                 subject.setName(rs.getString("name"));
-                subject.setCredit(rs.getInt("credit"));
 
                 School school = new School();
                 school.setCd(rs.getString("school_cd"));
@@ -65,7 +63,6 @@ public class SubjectDao extends Dao {
 
             subject.setCd(rs.getString("cd"));
             subject.setName(rs.getString("name"));
-            subject.setCredit(rs.getInt("credit"));
             subject.setSchool(school);
 
             list.add(subject);
@@ -75,7 +72,7 @@ public class SubjectDao extends Dao {
     }
 
     // =========================
-    // ② 一覧取得（全件）
+    // ② 一覧取得
     // =========================
     public List<Subject> filter(School school) throws Exception {
 
@@ -115,22 +112,20 @@ public class SubjectDao extends Dao {
 
             if (old == null) {
                 // INSERT
-                String sql = "INSERT INTO subject (cd, name, credit, school_cd) VALUES (?, ?, ?, ?)";
+                String sql = "INSERT INTO subject (school_cd, cd, name) VALUES (?, ?, ?)";
                 statement = connection.prepareStatement(sql);
 
-                statement.setString(1, subject.getCd());
-                statement.setString(2, subject.getName());
-                statement.setInt(3, subject.getCredit());
-                statement.setString(4, subject.getSchool().getCd());
+                statement.setString(1, subject.getSchool().getCd());
+                statement.setString(2, subject.getCd());
+                statement.setString(3, subject.getName());
 
             } else {
                 // UPDATE
-                String sql = "UPDATE subject SET name=?, credit=? WHERE cd=?";
+                String sql = "UPDATE subject SET name=? WHERE cd=?";
                 statement = connection.prepareStatement(sql);
 
                 statement.setString(1, subject.getName());
-                statement.setInt(2, subject.getCredit());
-                statement.setString(3, subject.getCd());
+                statement.setString(2, subject.getCd());
             }
 
             count = statement.executeUpdate();

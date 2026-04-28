@@ -29,7 +29,7 @@ public class Subject implements Serializable {
     public void setSchool(School school) {
         this.school = school;
     }
-    public String getname() {
+    public String getName() {
     	return name;
 	}
     public void setName(String name) {
