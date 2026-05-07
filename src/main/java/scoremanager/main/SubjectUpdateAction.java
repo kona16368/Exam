@@ -1,0 +1,44 @@
+package scoremanager.main;
+
+import bean.Subject;
+import dao.SubjectDao;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import tool.Action;
+
+public class SubjectUpdateAction extends Action {
+
+    @Override
+    public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
+
+        
+
+        // 科目コード取得
+        String cd = req.getParameter("cd");
+
+        // DAO生成
+        SubjectDao subjectDao = new SubjectDao();
+
+        // DBから科目取得
+        Subject subject = subjectDao.get(cd);
+
+        // 科目が存在しない場合
+        if (subject == null) {
+
+            req.setAttribute("error", "科目情報が存在しません");
+
+            req.getRequestDispatcher("error.jsp").forward(req, res);
+
+            return;
+        }
+
+        // JSPへ渡す
+        req.setAttribute("subject", subject);
+
+        req.setAttribute("cd", subject.getCd());
+        req.setAttribute("name", subject.getName());
+
+        // JSPへフォワード
+        req.getRequestDispatcher("subject_update.jsp").forward(req, res);
+    }
+}

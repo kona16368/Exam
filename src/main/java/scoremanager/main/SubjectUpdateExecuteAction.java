@@ -1,0 +1,32 @@
+package scoremanager.main;
+
+import bean.Subject;
+import dao.SubjectDao;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import tool.Action;
+
+public class SubjectUpdateExecuteAction extends Action {
+
+    @Override
+    public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
+
+        // ===== パラメータ取得 =====
+        String cd = req.getParameter("cd");
+        String name = req.getParameter("name");
+
+
+        // ===== Studentにセット =====
+        Subject subject = new Subject();
+        subject.setCd(cd);
+        subject.setName(name);
+        
+
+        // ===== DB更新 =====
+        SubjectDao dao = new SubjectDao();
+        dao.save(subject);
+
+        // ===== JSPへ =====
+        req.getRequestDispatcher("student_update_done.jsp").forward(req, res);
+    }
+}
