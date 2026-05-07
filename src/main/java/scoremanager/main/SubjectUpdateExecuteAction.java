@@ -27,6 +27,6 @@ public class SubjectUpdateExecuteAction extends Action {
         dao.save(subject);
 
         // ===== JSPへ =====
-        req.getRequestDispatcher("student_update_done.jsp").forward(req, res);
+        req.getRequestDispatcher("subject_update_done.jsp").forward(req, res);
     }
 }
