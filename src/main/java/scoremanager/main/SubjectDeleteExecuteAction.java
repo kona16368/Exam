@@ -1,4 +1,3 @@
-// SubjectDeleteExecuteAction.java
 package scoremanager.main;
 
 import dao.SubjectDao;
