@@ -8,7 +8,7 @@ import java.util.List;
 
 import bean.Test;
 
-public class TestlistsubjectDao extends Dao {
+public class TestListSubjectDao extends Dao {
 
     // =========================
     // 共通：ResultSet → List

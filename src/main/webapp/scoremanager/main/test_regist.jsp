@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java"
+	contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
@@ -15,18 +16,27 @@
 			成績登録
 		</h2>
 
-		<form action="TestRegistExecute.action" method="post">
+		<!-- 検索フォーム -->
+		<form action="TestRegistExecute.action"
+			  method="post">
 
-			<div class="row mb-3">
+			<div class="row mb-4">
 
 				<div class="col-md-3">
-					<label class="form-label">入学年度</label>
 
-					<select name="ent_year" class="form-select">
+					<label class="form-label">
+						入学年度
+					</label>
 
-						<option value="">--------</option>
+					<select name="ent_year"
+							class="form-select">
 
-						<c:forEach var="year" items="${ent_year_set}">
+						<option value="">
+							--------
+						</option>
+
+						<c:forEach var="year"
+								   items="${ent_year_set}">
 
 							<option value="${year}"
 								<c:if test="${year == ent_year}">
@@ -40,16 +50,24 @@
 						</c:forEach>
 
 					</select>
+
 				</div>
 
 				<div class="col-md-3">
-					<label class="form-label">クラス</label>
 
-					<select name="class_num" class="form-select">
+					<label class="form-label">
+						クラス
+					</label>
 
-						<option value="">--------</option>
+					<select name="class_num"
+							class="form-select">
 
-						<c:forEach var="classNum" items="${class_num_set}">
+						<option value="">
+							--------
+						</option>
+
+						<c:forEach var="classNum"
+								   items="${class_num_set}">
 
 							<option value="${classNum}"
 								<c:if test="${classNum == class_num}">
@@ -63,16 +81,24 @@
 						</c:forEach>
 
 					</select>
+
 				</div>
 
 				<div class="col-md-3">
-					<label class="form-label">科目</label>
 
-					<select name="subject_cd" class="form-select">
+					<label class="form-label">
+						科目
+					</label>
 
-						<option value="">--------</option>
+					<select name="subject_cd"
+							class="form-select">
 
-						<c:forEach var="subject" items="${subject_set}">
+						<option value="">
+							--------
+						</option>
+
+						<c:forEach var="subject"
+								   items="${subject_set}">
 
 							<option value="${subject.cd}"
 								<c:if test="${subject.cd == subject_cd}">
@@ -86,15 +112,20 @@
 						</c:forEach>
 
 					</select>
+
 				</div>
 
 				<div class="col-md-2">
-					<label class="form-label">回数</label>
+
+					<label class="form-label">
+						回数
+					</label>
 
 					<input type="number"
 						   name="no"
 						   value="${no}"
 						   class="form-control">
+
 				</div>
 
 				<div class="col-md-1 d-flex align-items-end">
@@ -112,9 +143,27 @@
 
 		</form>
 
+		<!-- 学生一覧 -->
 		<c:if test="${not empty students}">
 
-			<form action="TestRegistDone.action" method="post">
+			<form action="TestRegistDone.action"
+				  method="post">
+
+				<input type="hidden"
+					   name="ent_year"
+					   value="${ent_year}">
+
+				<input type="hidden"
+					   name="class_num"
+					   value="${class_num}">
+
+				<input type="hidden"
+					   name="subject_cd"
+					   value="${subject_cd}">
+
+				<input type="hidden"
+					   name="no"
+					   value="${no}">
 
 				<table class="table table-bordered">
 
@@ -132,7 +181,8 @@
 
 					<tbody>
 
-						<c:forEach var="student" items="${students}">
+						<c:forEach var="student"
+								   items="${students}">
 
 							<tr>
 
