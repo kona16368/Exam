@@ -130,29 +130,29 @@ public class TestDao extends Dao {
 
         return count > 0;
     }
-
-    // =========================
+    
+ // =========================
     // ③ 削除
-    // =========================
+ // =========================
     public boolean delete(
             String studentNo,
-            String subjectCd,
+         String subjectCd,
             int no) throws Exception {
 
-        Connection connection = getConnection();
-        PreparedStatement statement = null;
+     Connection connection = getConnection();
+     PreparedStatement statement = null;
 
         int count = 0;
 
-        try {
+     try {
 
-            String sql =
+         String sql =
                 "DELETE FROM test "
               + "WHERE student_no = ? "
               + "AND subject_cd = ? "
               + "AND no = ?";
 
-            statement = connection.prepareStatement(sql);
+         statement = connection.prepareStatement(sql);
 
             statement.setString(1, studentNo);
             statement.setString(2, subjectCd);
@@ -160,17 +160,17 @@ public class TestDao extends Dao {
 
             count = statement.executeUpdate();
 
-        } finally {
+     } finally {
 
-            if (statement != null) {
-                statement.close();
-            }
+         if (statement != null) {
+             statement.close();
+         }
 
-            if (connection != null) {
-                connection.close();
-            }
-        }
+         if (connection != null) {
+             connection.close();
+         }
+     }
 
         return count > 0;
-    }
+ }
 }

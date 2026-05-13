@@ -72,6 +72,6 @@ public class TestRegistExecuteAction extends Action {
 
 		req.setAttribute("students", students);
 
-		req.getRequestDispatcher("test_regist_done.jsp").forward(req, res);
+		req.getRequestDispatcher("test_regist.jsp").forward(req, res);
 	}
 }
