@@ -6,9 +6,9 @@
 	<c:param name="title">
 		得点管理システム
 	</c:param>
- 
+
 	<c:param name="scripts"></c:param>
- 
+
 	<c:param name="content">
 		<section class="me=4">
 			<h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">学生管理</h2>
@@ -51,8 +51,8 @@
 					<div class="mt-2 text-warning">${errors.get("f1") }</div>
 				</div>
 			</form>
- 
- 
+
+
 			<c:choose>
 				<c:when test="${students.size()>0 }">
 					<div>検索結果：${students.size() }件</div>

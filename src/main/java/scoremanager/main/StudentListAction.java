@@ -1,5 +1,5 @@
 package scoremanager.main;
- 
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,14 +14,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import tool.Action;
- 
+
 public class StudentListAction extends Action {
- 
+
 	@Override
 	public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
- 
+
 		HttpSession session = req.getSession();
 		Teacher teacher = (Teacher)session.getAttribute("user");
+
 		// ローカル変数の指定 1
 		String entYearStr = ""; // 入力された入学年度
 		String classNum = ""; // 入力されたクラス番号
@@ -34,11 +35,10 @@ public class StudentListAction extends Action {
 		StudentDao studentDao = new StudentDao(); // 学生Dao
 		ClassNumDao classNumDao = new ClassNumDao(); // クラス番号Daoを初期化
 		Map<String, String> errors = new HashMap<>(); // エラーメッセージ
- 
+
 		// リクエストパラメーターの取得 2
-		entYearStr = req.getParameter("f1");
-		classNum = req.getParameter("f2");
-		isAttendStr = req.getParameter("f3");
+		/////追記/////
+
 		// ビジネスロジック 4
 		if (entYearStr != null) {
 			// 数値に変換
@@ -54,22 +54,21 @@ public class StudentListAction extends Action {
 		for (int i = year - 10; i < year + 1; i++) {
 			entYearSet.add(i);
 		}
- 
+
 		// DBからデータ取得 3
 		// ログインユーザーの学校コードをもとにクラス番号の一覧を取得
 		List<String> list = classNumDao.filter(teacher.getSchool());
- 
+
 		if (entYear != 0 && !classNum.equals("0")) {
 			// 入学年度とクラス番号を指定
-			students = studentDao.filter(teacher.getSchool(), entYear, classNum, isAttend);
+			/////追記/////
 		} else if (entYear != 0 && classNum.equals("0")) {
 			// 入学年度のみ指定
-			 students = studentDao.filter(teacher.getSchool(), entYear, isAttend);
+		    /////追記/////
 		} else if (entYear == 0 && classNum == null || entYear == 0 && classNum.equals("0")) {
 			// 指定なし
 			// 全学生情報を取得
 		    /////追記/////
-			students = studentDao.filter(teacher.getSchool(),isAttend);
 		} else {
 			errors.put("f1", "クラスを指定する場合は入学年度も指定してください");
 			// リクエストにエラーメッセージをセット
@@ -77,7 +76,7 @@ public class StudentListAction extends Action {
 			// 全学生情報を取得
 			students = studentDao.filter(teacher.getSchool(), isAttend);
 		}
- 
+
 		// レスポンス値をセット 6
 		// リクエストに入学年度をセット
 		req.setAttribute("f1", entYear);
@@ -95,9 +94,9 @@ public class StudentListAction extends Action {
 		// リクエストにデータをセット
 		req.setAttribute("class_num_set", list);
 		req.setAttribute("ent_year_set", entYearSet);
- 
+
 		// JSPへフォワード 7
 		req.getRequestDispatcher("student_list.jsp").forward(req, res);
 	}
- 
+
 }
