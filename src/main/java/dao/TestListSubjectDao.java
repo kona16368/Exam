@@ -1,4 +1,5 @@
 package dao;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,68 +10,119 @@ import bean.TestSubject;
 
 public class TestListSubjectDao extends Dao {
 
+    // 成績検索
     public List<TestSubject> filter(
             int entYear,
             String classNum,
             String subjectCd) throws Exception {
 
-        List<TestSubject> list = new ArrayList<>();
+        List<TestSubject> list =
+                new ArrayList<>();
 
-        Connection con = getConnection();
-        PreparedStatement st = null;
+        Connection con =
+                getConnection();
 
-        try {
+        String sql =
+        	    "select "
+        	    + "s.ent_year, "
+        	    + "s.class_num, "
+        	    + "s.no as student_no, "
+        	    + "s.name as student_name, "
 
-            String sql =
-                "SELECT "
-              + "s.ent_year, "
-              + "s.class_num, "
-              + "s.no, "
-              + "s.name, "
-              + "MAX(CASE WHEN t.no = 1 THEN t.point END) AS point1, "
-              + "MAX(CASE WHEN t.no = 2 THEN t.point END) AS point2 "
-              + "FROM student s "
-              + "LEFT JOIN test t "
-              + "ON s.no = t.student_no "
-              + "AND t.subject_cd = ? "
-              + "WHERE s.ent_year = ? "
-              + "AND s.class_num = ? "
-              + "GROUP BY "
-              + "s.ent_year, s.class_num, s.no, s.name "
-              + "ORDER BY s.no";
+        	    + "max(case when t.no = 1 then t.point end) as point1, "
 
-            st = con.prepareStatement(sql);
+        	    + "max(case when t.no = 2 then t.point end) as point2 "
 
-            st.setString(1, subjectCd);
-            st.setInt(2, entYear);
-            st.setString(3, classNum);
+        	    + "from student s "
 
-            ResultSet rs = st.executeQuery();
+        	    + "left join test t "
+        	    + "on s.no = t.student_no "
 
-            while (rs.next()) {
+        	    + "where s.ent_year = ? "
+        	    + "and s.class_num = ? "
+        	    + "and t.subject_cd = ? "
 
-                TestSubject student = new TestSubject();
+        	    + "group by "
+        	    + "s.ent_year, "
+        	    + "s.class_num, "
+        	    + "s.no, "
+        	    + "s.name "
 
-                student.setEntYear(rs.getInt("ent_year"));
-                student.setClassNum(rs.getString("class_num"));
-                student.setStudentNo(rs.getString("no"));
-                student.setStudentName(rs.getString("name"));
-                student.setPoint1((Integer)rs.getObject("point1"));
-                student.setPoint2((Integer)rs.getObject("point2"));
+        	    + "order by s.no";
 
-                list.add(student);
-            }
+        PreparedStatement st =
+                con.prepareStatement(sql);
 
-        } finally {
+        st.setInt(1, entYear);
+        st.setString(2, classNum);
+        st.setString(3, subjectCd);
 
-            if (st != null) {
-                st.close();
-            }
+        ResultSet rs =
+                st.executeQuery();
 
-            if (con != null) {
-                con.close();
-            }
+        while (rs.next()) {
+
+            TestSubject test =
+                    new TestSubject();
+
+            test.setEntYear(
+                    rs.getInt("ent_year"));
+
+            test.setClassNum(
+                    rs.getString("class_num"));
+
+            test.setStudentNo(
+                    rs.getString("student_no"));
+
+            test.setStudentName(
+                    rs.getString("student_name"));
+
+            test.setPoint1(
+                    (Integer) rs.getObject("point1"));
+
+            test.setPoint2(
+                    (Integer) rs.getObject("point2"));
+
+            list.add(test);
         }
+
+        rs.close();
+        st.close();
+        con.close();
+
+        return list;
+    }
+
+    // 入学年度取得
+    public List<Integer> filterEntYear()
+            throws Exception {
+
+        List<Integer> list =
+                new ArrayList<>();
+
+        Connection con =
+                getConnection();
+
+        String sql =
+                "select distinct ent_year "
+                + "from student "
+                + "order by ent_year";
+
+        PreparedStatement st =
+                con.prepareStatement(sql);
+
+        ResultSet rs =
+                st.executeQuery();
+
+        while (rs.next()) {
+
+            list.add(
+                    rs.getInt("ent_year"));
+        }
+
+        rs.close();
+        st.close();
+        con.close();
 
         return list;
     }

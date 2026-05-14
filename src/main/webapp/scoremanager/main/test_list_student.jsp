@@ -213,69 +213,54 @@
 				</p>
 
 			</c:if>
+<c:if test="${not empty student_list}">
 
-			<c:if test="${not empty list}">
+	<h3 class="mt-4">
+		検索結果
+	</h3>
 
-				<h3 class="mt-4">
-					検索結果
-				</h3>
+	<p>
+		学生番号：${f4}
+	</p>
 
-				<p class="mb-2">
+	<table class="table table-hover">
 
-					入学年度：${f1}
-					／ クラス：${f2}
-					／ 科目：${f3}
+		<thead class="table-light">
 
-				</p>
+			<tr>
+				<th>科目コード</th>
+				<th>科目名</th>
+				<th>回数</th>
+				<th>点数</th>
+			</tr>
 
-				<table class="table table-hover">
+		</thead>
 
-					<thead class="table-light">
+		<tbody>
 
-						<tr>
+			<c:forEach var="test"
+				items="${student_list}">
 
-							<th>入学年度</th>
-							<th>クラス</th>
-							<th>学生番号</th>
-							<th>氏名</th>
-							<th>1回</th>
-							<th>2回</th>
+				<tr>
 
-						</tr>
+					<td>${test.subjectCd}</td>
 
-					</thead>
+					<td>${test.subjectName}</td>
 
-					<tbody>
+					<td>${test.no}</td>
 
-						<c:forEach var="test"
-							items="${list}">
+					<td>${test.point}</td>
 
-							<tr>
+				</tr>
 
-								<td>${test.entYear}</td>
+			</c:forEach>
 
-								<td>${test.classNum}</td>
+		</tbody>
 
-								<td>${test.studentNo}</td>
+	</table>
 
-								<td>${test.studentName}</td>
-
-								<td>${test.point1}</td>
-
-								<td>${test.point2}</td>
-
-							</tr>
-
-						</c:forEach>
-
-					</tbody>
-
-				</table>
-
-			</c:if>
-
-		</section>
+</c:if>
+</section>
 
 	</c:param>
-
 </c:import>

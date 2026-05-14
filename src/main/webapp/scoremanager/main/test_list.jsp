@@ -17,7 +17,7 @@
 			<div class="border rounded p-4 mb-3">
  
 				<!-- 科目情報検索 -->
-<form action="TestList.action" method="get">
+<form action="TestListSubjectExecute.action" method="get">
 <div class="row align-items-end mb-3">
  
 						<div class="col-2">
@@ -73,7 +73,7 @@
 				<hr>
  
 				<!-- 学生番号検索 -->
-<form action="TestListSubjectExecute.action" method="get">
+<form action="TestListStudentExecute.action" method="get">
 <div class="row align-items-end">
  
 						<div class="col-2">
