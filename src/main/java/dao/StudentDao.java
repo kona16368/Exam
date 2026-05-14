@@ -163,7 +163,7 @@ public class StudentDao extends Dao {
             }
 
             sql += " ORDER BY no ASC";
-
+         
             statement = connection.prepareStatement(sql);
 
             statement.setString(1, school.getCd());
