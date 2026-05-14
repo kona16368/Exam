@@ -12,7 +12,7 @@
  
 		<section class="me-4">
  
-			<h2 class="h3 mb-3 fw-normal bg-light p-3">成績一覧（学生）</h2>
+			<h2 class="h3 mb-3 fw-normal bg-light p-3">成績一覧</h2>
  
 			<div class="border rounded p-4 mb-3">
  
