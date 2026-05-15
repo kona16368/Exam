@@ -86,7 +86,8 @@
 								name="f4"
 								value="${f4}"
 								class="form-control"
-								placeholder="学生番号を入力してください">
+								placeholder="学生番号を入力してください"
+								required>
 </div>
  
 						<div class="col-2">

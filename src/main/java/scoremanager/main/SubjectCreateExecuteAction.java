@@ -37,6 +37,8 @@ public class SubjectCreateExecuteAction extends Action {
         // 入力チェック
         if (cd == null || cd.isEmpty()) {
             errors.put("1", "科目コードを入力してください");
+        }else if(cd.length() !=3) {
+        	errors.put("1","科目コード３文字で入力してください");
         }
 
         if (name == null || name.isEmpty()) {

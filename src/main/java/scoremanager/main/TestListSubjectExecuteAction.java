@@ -37,6 +37,55 @@ public class TestListSubjectExecuteAction extends Action {
             entYear =
                     Integer.parseInt(f1);
         }
+        if (f1 == null || f1.isEmpty()
+                || f2 == null || f2.isEmpty()
+                || f3 == null || f3.isEmpty()) {
+
+            request.setAttribute(
+                    "error",
+                    "情報が存在しません");
+
+            // 条件保持
+            request.setAttribute("f1", f1);
+            request.setAttribute("f2", f2);
+            request.setAttribute("f3", f3);
+
+            Teacher teacher =
+                    (Teacher)request.getSession()
+                            .getAttribute("user");
+
+            // クラス一覧
+            ClassNumDao classNumDao =
+                    new ClassNumDao();
+
+            request.setAttribute(
+                    "class_num_set",
+                    classNumDao.filter(
+                            teacher.getSchool()));
+
+            // 科目一覧
+            SubjectDao subjectDao =
+                    new SubjectDao();
+
+            request.setAttribute(
+                    "subject_set",
+                    subjectDao.filter(
+                            teacher.getSchool()));
+
+            // 入学年度一覧
+            TestListSubjectDao dao =
+                    new TestListSubjectDao();
+
+            request.setAttribute(
+                    "ent_year_set",
+                    dao.filterEntYear());
+
+            request.getRequestDispatcher(
+                    "test_list_subject.jsp")
+                    .forward(request, response);
+
+            return;
+        }
 
         // 成績検索
         TestListSubjectDao dao =

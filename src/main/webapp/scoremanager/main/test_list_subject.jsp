@@ -189,6 +189,15 @@
 				</form>
 
 			</div>
+			<c:if test="${not empty error}">
+
+    <p class="text-danger">
+
+        ${error}
+
+    </p>
+
+</c:if>
 
 			<c:if test="${empty list}">
 
