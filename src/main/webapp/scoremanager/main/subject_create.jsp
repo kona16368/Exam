@@ -26,7 +26,8 @@
 					   name="cd"
 					   value="${cd}"
 					   class="form-control"
-					   placeholder="科目コードを入力してください">
+					   placeholder="科目コードを入力してください"
+					   required>
 
 				<c:if test="${not empty errors['1']}">
 
@@ -60,7 +61,8 @@
 					   name="name"
 					   value="${name}"
 					   class="form-control"
-					   placeholder="科目名を入力してください">
+					   placeholder="科目名を入力してください"
+					   required>
 
 				<c:if test="${not empty errors['2']}">
 

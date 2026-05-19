@@ -14,7 +14,7 @@
 		<div id="wrap_box">
 
 			<h2 class="h3 mb-3 fw-normal bg-secondary bg-opacity-10 py-2">
-				成績登録
+				成績管理
 			</h2>
 
 			<div id="wrap_box">

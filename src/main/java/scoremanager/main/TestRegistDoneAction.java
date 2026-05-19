@@ -41,6 +41,15 @@ public class TestRegistDoneAction extends Action {
 			if (pointStr != null && !pointStr.equals("")) {
 
 				int point = Integer.parseInt(pointStr);
+				
+				if (point < 0 || point > 100) {
+				    req.setAttribute("error", "点数は0～100で入力してください");
+
+				    req.getRequestDispatcher("test_regist.jsp")
+				       .forward(req, res);
+
+				    return;
+				}
 
 				Test test = new Test();
 

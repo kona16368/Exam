@@ -19,31 +19,35 @@ public class SubjectDao extends Dao {
     // =========================
     // ① 1件取得
     // =========================
-    public Subject get(String cd) throws Exception {
+    public Subject get(String cd, School school) throws Exception {
 
         Subject subject = null;
         Connection connection = getConnection();
         PreparedStatement statement = null;
 
         try {
-            String sql = "SELECT * FROM subject WHERE cd = ?";
+            String sql =
+                "SELECT * FROM subject WHERE cd = ? AND school_cd = ?";
+
             statement = connection.prepareStatement(sql);
+
             statement.setString(1, cd);
+            statement.setString(2, school.getCd());
 
             ResultSet rs = statement.executeQuery();
 
             if (rs.next()) {
+
                 subject = new Subject();
 
                 subject.setCd(rs.getString("cd"));
                 subject.setName(rs.getString("name"));
 
-                School school = new School();
-                school.setCd(rs.getString("school_cd"));
                 subject.setSchool(school);
             }
 
         } finally {
+
             if (statement != null) statement.close();
             if (connection != null) connection.close();
         }
@@ -108,7 +112,7 @@ public class SubjectDao extends Dao {
         int count = 0;
 
         try {
-            Subject old = get(subject.getCd());
+        	Subject old = get(subject.getCd(), subject.getSchool());
 
             if (old == null) {
                 // INSERT

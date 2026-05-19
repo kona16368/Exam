@@ -228,8 +228,8 @@
 		<thead class="table-light">
 
 			<tr>
-				<th>科目コード</th>
 				<th>科目名</th>
+				<th>科目コード</th>
 				<th>回数</th>
 				<th>点数</th>
 			</tr>
@@ -243,9 +243,9 @@
 
 				<tr>
 
-					<td>${test.subjectCd}</td>
-
 					<td>${test.subjectName}</td>
+
+					<td>${test.subjectCd}</td>
 
 					<td>${test.no}</td>
 

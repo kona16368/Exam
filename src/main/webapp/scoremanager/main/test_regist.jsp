@@ -13,7 +13,7 @@
 	<c:param name="content">
 
 		<h2 class="h3 mb-4 bg-light py-2 px-3">
-			成績登録
+			成績管理
 		</h2>
 
 		<!-- 検索フォーム -->
@@ -163,7 +163,7 @@
 
 				<input type="hidden"
 					   name="no"
-					   value="${no}">
+					   value="${student.point}">
 
 				<table class="table table-bordered">
 
@@ -198,7 +198,8 @@
 
 									<input type="number"
 										   name="point_${student.no}"
-										   class="form-control">
+										   class="form-control"
+										   value = ${student.point }>
 
 								</td>
 

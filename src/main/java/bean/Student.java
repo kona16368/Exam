@@ -23,6 +23,8 @@ public class Student implements Serializable {
 
     /** 学校 */
     private School school;
+    
+    private Integer point;
 
     // コンストラクタ
     public Student() {
@@ -85,4 +87,11 @@ public class Student implements Serializable {
     public void setSchool(School school) {
         this.school = school;
     }
+    
+    public Integer getPoint() {
+		return point;
+	}
+    public void setPoint(Integer point) {
+		this.point = point;
+	}
 }

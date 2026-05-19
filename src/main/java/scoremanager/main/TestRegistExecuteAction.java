@@ -7,9 +7,11 @@ import java.util.List;
 import bean.Student;
 import bean.Subject;
 import bean.Teacher;
+import bean.Test;
 import dao.ClassNumDao;
 import dao.StudentDao;
 import dao.SubjectDao;
+import dao.TestDao;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -26,6 +28,7 @@ public class TestRegistExecuteAction extends Action {
 		ClassNumDao classNumDao = new ClassNumDao();
 		SubjectDao subjectDao = new SubjectDao();
 		StudentDao studentDao = new StudentDao();
+		TestDao testDao = new TestDao();
 
 		String entYearStr = req.getParameter("ent_year");
 		String classNum = req.getParameter("class_num");
@@ -59,6 +62,18 @@ public class TestRegistExecuteAction extends Action {
 
 		if (entYear != 0 && classNum != null && !classNum.equals("")) {
 			students = studentDao.filter(teacher.getSchool(), entYear, classNum, true);
+			for (Student student : students) {
+
+			    Test test = testDao.get(
+			        student.getNo(),
+			        subjectCd,
+			        no
+			    );
+
+			    if (test != null) {
+			        student.setPoint(test.getPoint());
+			    }
+			}
 		}
 
 		req.setAttribute("ent_year_set", entYearSet);

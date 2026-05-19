@@ -11,57 +11,36 @@ public class TestDao extends Dao {
     // =========================
     // ① 1件取得
     // =========================
-    public Test get(
-            String studentNo,
-            String subjectCd,
-            int no) throws Exception {
+	public Test get(String studentNo, String subjectCd, int no) throws Exception {
 
-        Test test = null;
+	    Test test = null;
 
-        Connection connection = getConnection();
-        PreparedStatement statement = null;
+	    Connection connection = getConnection();
 
-        try {
+	    String sql =
+	        "SELECT * FROM test WHERE student_no=? AND subject_cd=? AND no=?";
 
-            String sql =
-                "SELECT * FROM test "
-              + "WHERE student_no = ? "
-              + "AND subject_cd = ? "
-              + "AND no = ?";
+	    PreparedStatement statement =
+	        connection.prepareStatement(sql);
 
-            statement = connection.prepareStatement(sql);
+	    statement.setString(1, studentNo);
+	    statement.setString(2, subjectCd);
+	    statement.setInt(3, no);
 
-            statement.setString(1, studentNo);
-            statement.setString(2, subjectCd);
-            statement.setInt(3, no);
+	    ResultSet rs = statement.executeQuery();
 
-            ResultSet rs = statement.executeQuery();
+	    if (rs.next()) {
 
-            if (rs.next()) {
+	        test = new Test();
 
-                test = new Test();
+	        test.setPoint(rs.getInt("point"));
+	    }
 
-                test.setStudent_no(rs.getString("student_no"));
-                test.setSubject_cd(rs.getString("subject_cd"));
-                test.setSchool_cd(rs.getString("school_cd"));
-                test.setNo(rs.getInt("no"));
-                test.setPoint(rs.getInt("point"));
-                test.setClass_num(rs.getString("class_num"));
-            }
+	    statement.close();
+	    connection.close();
 
-        } finally {
-
-            if (statement != null) {
-                statement.close();
-            }
-
-            if (connection != null) {
-                connection.close();
-            }
-        }
-
-        return test;
-    }
+	    return test;
+	}
 
     // =========================
     // ② 登録 or 更新

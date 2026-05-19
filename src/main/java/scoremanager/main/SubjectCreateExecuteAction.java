@@ -31,8 +31,8 @@ public class SubjectCreateExecuteAction extends Action {
         Map<String, String> errors = new HashMap<>();
 
         // リクエストパラメータ取得
-        cd = req.getParameter("cd");
-        name = req.getParameter("name");
+        cd = req.getParameter("cd").trim();
+        name = req.getParameter("name").trim();
        
         // 入力チェック
         if (cd == null || cd.isEmpty()) {
@@ -48,7 +48,7 @@ public class SubjectCreateExecuteAction extends Action {
         // 重複チェック
         if (errors.isEmpty()) {
 
-            if (subjectDao.get(cd) != null) {
+        	if (subjectDao.get(cd, teacher.getSchool()) != null) {
 
                 errors.put("3", "科目コードが重複しています");
 

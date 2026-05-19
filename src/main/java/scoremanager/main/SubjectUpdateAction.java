@@ -1,15 +1,20 @@
 package scoremanager.main;
 
 import bean.Subject;
+import bean.Teacher;
 import dao.SubjectDao;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import tool.Action;
 
 public class SubjectUpdateAction extends Action {
 
     @Override
     public void execute(HttpServletRequest req, HttpServletResponse res) throws Exception {
+    	
+    	HttpSession session = req.getSession();
+        Teacher teacher = (Teacher) session.getAttribute("user");
 
         
 
@@ -20,7 +25,7 @@ public class SubjectUpdateAction extends Action {
         SubjectDao subjectDao = new SubjectDao();
 
         // DBから科目取得
-        Subject subject = subjectDao.get(cd);
+        Subject subject = subjectDao.get(cd, teacher.getSchool());
 
         // 科目が存在しない場合
         if (subject == null) {
