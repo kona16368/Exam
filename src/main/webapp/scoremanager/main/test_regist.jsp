@@ -163,7 +163,7 @@
 
 				<input type="hidden"
 					   name="no"
-					   value="${student.point}">
+					   value="${no}">
 
 				<table class="table table-bordered">
 
@@ -199,7 +199,7 @@
 									<input type="number"
 										   name="point_${student.no}"
 										   class="form-control"
-										   value = ${student.point }>
+										   value = "${student.point}">
 
 								</td>
 
