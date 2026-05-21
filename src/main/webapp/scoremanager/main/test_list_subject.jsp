@@ -210,7 +210,11 @@
 				</p>
 
 			</c:if>
-
+			<c:if test="${empty students}">
+	<div class="alert alert-warning">
+		学生情報がありません
+	</div>
+</c:if>
 			<c:if test="${not empty student}">
 
 				<p>
